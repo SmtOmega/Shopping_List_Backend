@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const router = require("./routes/api/item");
-const {MONGODB_URL} = require('./config/constant') 
+ 
 const path = require("path");
 
 const app = express();
@@ -30,7 +30,7 @@ app.use(router);
 // }
 
 mongoose
-  .connect(process.env.MONGODB_URL || MONGODB_URL,
+  .connect(process.env.MONGODB_URL,
     
     {
       useNewUrlParser: true,
