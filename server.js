@@ -30,7 +30,7 @@ app.use(router);
 // }
 
 mongoose
-  .connect(MONGODB_URL,
+  .connect(MONGODB_URL || process.env.MONGODB_URL,
     
     {
       useNewUrlParser: true,
