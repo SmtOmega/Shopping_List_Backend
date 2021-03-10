@@ -11,6 +11,11 @@ const itemSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now()
+    },
+    owner : {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     }
 })
 

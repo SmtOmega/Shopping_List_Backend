@@ -1,13 +1,14 @@
 const express = require('express')
 const Item = require('../../models/Items')
+const auth = require('../../middleware/auth')
 
 const router = new express.Router()
 
 //Get all api/items 
 
-router.get('/items', async(req, res)=>{
+router.get('/items', auth, async(req, res)=>{
     try {
-        const item = await Item.find({}).sort({date: -1})
+        const item = await Item.find({owner: req.user._id}).sort({date: -1})
         res.status(201).send(item)
     } catch (error) {
      res.status(404).send(error)   
@@ -17,8 +18,8 @@ router.get('/items', async(req, res)=>{
 
 // create a post route
 
-router.post('/items', async(req, res) =>{
-    const item = new Item(req.body)
+router.post('/items', auth, async(req, res) =>{
+    const item = new Item({...req.body, owner: req.user._id})
     try {
         await item.save()
         res.status(201).send(item)
@@ -29,7 +30,7 @@ router.post('/items', async(req, res) =>{
 
 // deleting an item from the database
 
-router.delete('/items/:id', async(req, res) => {
+router.delete('/items/:id', auth, async(req, res) => {
     const _id = req.params.id
     try {
         const item = await Item.findByIdAndDelete(_id)
