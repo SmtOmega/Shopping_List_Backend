@@ -20,7 +20,7 @@ const app = express();
 // });
 
 app.use(cors({
-  origin: ['http://localhost:3000'],
+  origin: ['http://localhost:3000', "https://mike-shopping-list.herokuapp.com"],
   credentials: true
 }))
 const port = process.env.PORT || 3001;
