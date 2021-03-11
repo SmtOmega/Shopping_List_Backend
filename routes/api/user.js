@@ -63,7 +63,7 @@ router.get('/user/loggedIn', (req, res) => {
     if(!token){
       return res.send(false)
     }
-    jwt.verify(token, process.env.JWT_SECRET || 'nodecrashcourse')
+    jwt.verify(token, process.env.JWT_SECRET)
     res.send(true)
   } catch (error) {
     res.send(false)
