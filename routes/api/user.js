@@ -17,7 +17,8 @@ router.post("/user", async (req, res) => {
     res
       .cookie("token", token, {
         httpOnly: true,
-        sameSite: 'none'
+        sameSite: 'none',
+        secure: true
       })
       .status(201)
       .send({ user });
@@ -41,7 +42,8 @@ router.post("/user/login", async (req, res) => {
     res
       .cookie("token", token, {
         httpOnly: true,
-        sameSite: 'none'
+        sameSite: 'none',
+        secure:true
       })
       .status(201)
       .send({ user });
@@ -82,6 +84,7 @@ router.get('/user/logout', auth, async(req, res) => {
     res.cookie('token', '', {
       httpOnly: true,
       sameSite: 'none',
+      secure: true,
       expires: new Date(0)
     }).send()
   } catch (error) {
