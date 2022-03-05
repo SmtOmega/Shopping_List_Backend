@@ -9,9 +9,9 @@ const router = new express.Router()
 router.get('/items', auth, async(req, res)=>{
     try {
         const item = await Item.find({owner: req.user._id}).sort({date: -1})
-        res.status(201).send(item)
+        res.status(200).json({item})
     } catch (error) {
-     res.status(404).send(error)   
+     res.status(404).json({error})   
     }
 })
 
@@ -22,9 +22,9 @@ router.post('/items', auth, async(req, res) =>{
     const item = new Item({...req.body, owner: req.user._id})
     try {
         await item.save()
-        res.status(201).send(item)
+        res.status(201).json({item})
     } catch (error) {
-        res.status(400).send(error)
+        res.status(400).json({error})
     }
 })
 
@@ -35,11 +35,11 @@ router.delete('/items/:id', auth, async(req, res) => {
     try {
         const item = await Item.findByIdAndDelete(_id)
         if(!item){
-            res.status(404).send()
+           return res.status(404).json({msg: "Item can not be found"})
         }
-        res.status(201).send(item)
+        res.status(200).json({item})
     } catch (error) {
-        res.status(404).send(error)
+        res.status(404).json({error})
     }
 })
 

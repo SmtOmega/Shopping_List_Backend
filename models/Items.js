@@ -6,7 +6,8 @@ const mongoose = require('mongoose')
 const itemSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: [true, 'must provide a name'],
+        trim: true
     },
     date: {
         type: Date,

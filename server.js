@@ -5,6 +5,7 @@ const userRouter = require('./routes/api/user')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const path = require("path");
+require('dotenv').config()
 
 const app = express();
 
@@ -38,7 +39,9 @@ app.use(userRouter)
 //   })
 // }
 
-mongoose
+
+const connectDB = () => {
+  return mongoose
   .connect(process.env.MONGODB_URL,
     
     {
@@ -47,9 +50,19 @@ mongoose
       useUnifiedTopology: true,
     }
   )
-  .then(() => console.log("MongoDb connected.."))
-  .catch((err) => console.log(err));
 
-app.listen(port, () => {
-  console.log(`starting server at ${port}`);
-});
+}
+
+const start = async () => {
+  try {
+    await connectDB()
+    app.listen(port, () => {
+      console.log(`starting server at ${port}`);
+    });
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+start()

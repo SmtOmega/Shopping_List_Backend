@@ -21,7 +21,7 @@ router.post("/user", async (req, res) => {
         secure: true
       })
       .status(201)
-      .send({ user });
+      .json({ user });
   } catch (error) {
     res.status(400).send(error);
   }
